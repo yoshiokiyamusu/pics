@@ -1,0 +1,8 @@
+repository: ejs_auth
+
+
+git init
+git add .
+git commit -m "first commit"
+git remote add repo_ejs https://github.com/yoshiokiyamusu/ejs_auth.git
+git push -u repo_ejs master

@@ -1,0 +1,52 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/product.css">
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+
+            <main>
+                <% if (prods.length > 0) { %>
+                    <div class="grid">
+                        <% for (let product of prods) { %>
+                            <article class="card product-item">
+                                <header class="card__header">
+                                    <h1 class="product__title">
+                                        <%= product.orden_servicio %>
+                                    </h1>
+                                </header>
+                                <div class="card__image">
+                                    <img src="<%= product.fecha_envio %>" alt="">
+                                    <h1 class="product__title">
+                                        <%=  product.fecha_envio.slice(0, 10)   %>
+                                        
+                                    </h1>
+                                </div>
+                       
+                                <div class="card__actions">
+                                   
+                                   
+                                </div>
+                            </article>
+                            <% } %>
+                    </div>
+                    <% } else { %>
+                        <h1>No Products Found!</h1>
+                        <% } %>
+            </main>
+            <%- include('../includes/end.ejs') %>
+
+            <form action="/products" method="POST">
+                    <select class="form-control col-sm-2" id="ProveedorId" placeholder="" name="ProveedorId">
+                        <option value="" selected> Seleccionar proveedor</option>
+                        <option value="CIELO_ELTEX">CIELO_ELTEX</option>
+                        <option value="JANINA">JANINA</option>
+                        <option value="GRIMALDO_ABBY">GRIMALDO_ABBY</option>
+                        <option value="JUANCARLOS">JUANCARLOS</option>
+                        <option value="PROSPERA_TEXTIL">PROSPERA_TEXTIL</option>
+                    </select>               
+
+                    <button class="btn" type="submit">seleccionar</button>
+                    <!-- value de token-->
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">    
+            </form>

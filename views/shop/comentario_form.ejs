@@ -1,0 +1,37 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/product.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/js/mdb.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    </head>
+    <%- include('../includes/navigation.ejs') %>
+    <body>
+        <form action="/comment_proveedor" method="POST">
+            <h5><%= api_res.message_post %></h5>
+            <div class="form-row">
+                <div class="col-sm-6" id="">
+                    <h4 for="input-os" class="col-sm-4 col-form-label">Orden de producción</h4>
+                    <input  class="form-control col-sm-5" id="" type="text" name="ot" value="" ></input>
+
+                    <h4 for="input-os" class="col-sm-4 col-form-label">Comentario</h4>
+                    <input  class="form-control col-sm-5" id="" type="text" name="op_comentario" value="" ></input>
+
+                    <h4 for="input-os" class="col-sm-4 col-form-label">Usuario</h4>
+                    <input  class="form-control col-sm-5" id="" type="text" name="op_usuario" value="" ></input>
+
+                    <br>
+                    <br></br>
+                    <div class="row">
+                      <button class="btn form-control col-sm-5" type="submit">Submit</button>
+                    </div><!-- form-row -->
+
+                    <!-- value de token-->
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">   
+                </div>
+            </div>
+        </form>
+    </body>        
+    <%- include('../includes/end.ejs') %>
+
