@@ -3,7 +3,7 @@ heroku logs --tail --app auth-ejs-front
 
 git init
 git add .
-git commit -m "first commit"
+git commit -m "node"
 git push repo_ejs master
 
 --------------------------------
@@ -24,3 +24,13 @@ git push repo_ejs branch14may
 //para hacer el merge de rama a master:
 git checkout master
 git merge branch14may
+
+
+-----------------------------
+
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "start-server": "node app.js"
+  }
