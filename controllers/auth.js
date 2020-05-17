@@ -63,7 +63,7 @@ exports.postLogin = (req, res, next) => {
                   new Date().getTime() + remainingMilliseconds
                 );
                 localStorage.setItem('expiryDate', expiryDate.toISOString());
-                this.setAutoLogout(remainingMilliseconds);
+                localStorage.setAutoLogout(remainingMilliseconds);
                 
                
                 
