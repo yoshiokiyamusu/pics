@@ -4,6 +4,9 @@ repository: ejs_auth
 git init
 git add .
 git commit -m "first commit"
+git push repo_ejs master
+
+--------------------------------
 git remote add repo_ejs https://github.com/yoshiokiyamusu/ejs_auth.git
 git push -u repo_ejs master
 
@@ -11,7 +14,7 @@ git push -u repo_ejs master
 --------------------------------------
 
 
-git push repo_ejs master
+
 
 //para crear una rama
 git checkout -b branch14may     (nuevo)
