@@ -1,5 +1,5 @@
 repository: ejs_auth
-
+heroku logs --tail --app auth-ejs-front
 
 git init
 git add .
