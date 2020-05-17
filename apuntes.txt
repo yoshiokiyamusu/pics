@@ -6,3 +6,18 @@ git add .
 git commit -m "first commit"
 git remote add repo_ejs https://github.com/yoshiokiyamusu/ejs_auth.git
 git push -u repo_ejs master
+
+
+--------------------------------------
+
+
+git push repo_ejs master
+
+//para crear una rama
+git checkout -b branch14may     (nuevo)
+
+git push repo_ejs branch14may
+
+//para hacer el merge de rama a master:
+git checkout master
+git merge branch14may
