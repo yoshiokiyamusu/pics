@@ -40,7 +40,7 @@ exports.postLogin = (req, res, next) => {
         .then(doMatch => {
           if (doMatch) {
               /*Fetch post hacia mysql-backend-api para que regreses un jwtoken y se almacene en el localstorage del navegador */ 
-              fetch('http://localhost:3006/auth/login',{
+              fetch('https://api-trial-post12.herokuapp.com/auth/login',{
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json'

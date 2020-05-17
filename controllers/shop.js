@@ -140,7 +140,7 @@ exports.getOPs = (req, res, next) => {
   const token = localStorage.getItem('token');
   const proveedor = 'JANINA';
 
-  fetch('http://localhost:3006/info/orden_servicio/' + proveedor, {
+  fetch('https://api-trial-post12.herokuapp.com/info/orden_servicio/' + proveedor, {
     headers: { Authorization: 'Bearer ' + token }  
   })
   .then(rows => {
@@ -171,7 +171,7 @@ exports.getOPsBySupplier = (req, res, next) => {
   const proveedor = req.body.ProveedorId;    console.log(proveedor);
   
 
-  fetch('http://localhost:3006/info/orden_servicio/' + proveedor, {
+  fetch('https://api-trial-post12.herokuapp.com/info/orden_servicio/' + proveedor, {
     headers: { Authorization: 'Bearer ' + token }  
   })
   .then(rows => {
@@ -217,7 +217,7 @@ exports.postCommentForm = (req, res, next) => {
 
   //console.log(ot_nombre); console.log(op_comentario); console.log(op_usuario);
 
-  fetch('http://localhost:3006/write/comment', {
+  fetch('https://api-trial-post12.herokuapp.com/write/comment', {
     method:'POST',
     body:JSON.stringify({
       orden: ot_nombre,
