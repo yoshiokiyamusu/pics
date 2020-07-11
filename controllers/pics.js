@@ -17,17 +17,17 @@ exports.renderIndex = (req, res, next) => {
 // Upload File Router Handler
 exports.uploadFile = async (req, res, next) => {
    // show the uploaded file information
-   console.log(req.file);
+   //console.log(req.file);
     
-   // Saving the Image URL in Database
-   const newImage = new Image();
-   newImage.url = req.file.location;
-   newImage.title = req.body.nombre_pic;
-   newImage.costo = 456;
-   newImage.description = 'cualquier ejemplo de imagen';
-   
-   await newImage.save();
-   
+   for (var i=0; i<req.files.length; i++) {
+      // Saving the Image URL in Database
+      const newImage = new Image();
+      newImage.url = req.files[i].location;
+      newImage.title = req.body.nombre_pic;
+      newImage.costo = 456;
+      newImage.description = 'cualquier ejemplo de imagen';
+      await newImage.save();
+   }
    // Redirect to the initial page
    res.redirect("/files");
 

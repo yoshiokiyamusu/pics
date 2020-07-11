@@ -17,15 +17,15 @@ const upload = multer({
     acl: 'public-read',
     metadata: (req, file, cb) => {
       cb(null, {
-        fieldName: file.fieldname, //Asignar el nombre original del archivo
+        fieldName: file.fieldname + '-' + Date.now(), //Asignar el nombre original del archivo
       });
     },
     key: (request, file, cb) => {
-      console.log(file);
+      //console.log(file);
       cb(null, file.originalname); //Agregar la extension al archivo subido
     },
   }),
-}).single("upload");//Es como un elementListener, "single" es para subir 1 solo archivo "array" es para multiples archivos //"upload" es el nombre la ruta donde esta el formulario
+}).array("upload");//Es como un elementListener, "single" es para subir 1 solo archivo "array" es para multiples archivos //"upload" es el nombre la ruta donde esta el formulario
 
 
 module.exports = { upload, s3 };

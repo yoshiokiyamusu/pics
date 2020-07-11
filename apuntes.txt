@@ -4,13 +4,11 @@ heroku logs --tail --app auth-ejs-front
 git init
 git add .
 git commit -m "node"
-git push repo_ejs master
+git push repo_pics master
 
 --------------------------------
-git remote add repo_ejs https://github.com/yoshiokiyamusu/ejs_auth.git
-git push -u repo_ejs master
 
-
+git remote add repo_pics https://github.com/yoshiokiyamusu/pics.git
 --------------------------------------
 
 
