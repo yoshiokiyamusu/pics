@@ -1,0 +1,98 @@
+<%- include('includes/header.ejs') %>
+<%- include('includes/navbar.ejs') %>
+
+
+<style>
+    section {
+        padding-top: 4rem;
+        padding-bottom: 5rem;
+        background-color: #f1f4fa;
+    }
+    .wrap {
+        display: flex;
+        background: white;
+        padding: 1rem 1rem 1rem 1rem;
+        border-radius: 0.5rem;
+        box-shadow: 7px 7px 30px -5px rgba(0,0,0,0.1);
+        margin-bottom: 2rem;
+    }
+    
+    .wrap:hover {
+        background: linear-gradient(135deg,#6394ff 0%,#0a193b 100%);
+        color: white;
+    }
+    
+    .ico-wrap {
+        margin: auto;
+    }
+    
+    .mbr-iconfont {
+        font-size: 4.5rem !important;
+        color: #313131;
+        margin: 1rem;
+        padding-right: 1rem;
+    }
+    .vcenter {
+        margin: auto;
+    }
+    
+    .mbr-section-title3 {
+        text-align: left;
+    }
+    h2 {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    .display-5 {
+        font-family: 'Source Sans Pro',sans-serif;
+        font-size: 1.4rem;
+    }
+    .mbr-bold {
+        font-weight: 700;
+    }
+    
+     p {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        line-height: 25px;
+    }
+    .display-6 {
+        font-family: 'Source Sans Pro',sans-serif;
+    }
+    .botongrande a {
+        text-decoration: none;
+    }
+    </style>
+
+
+
+
+<div class="row mbr-justify-content-center col-xs-12 p-4">
+    <a class="botongrande col-lg-6 col-xs-12 mbr-col-md-10" href="/tol/os_en_curso" >
+        <div class="wrap">
+            <div class="ico-wrap">
+                <i class="fas fa-sign-in-alt"></i>
+                <span class="mbr-iconfont fa-eye fa"></span>
+            </div>
+            <div class="text-wrap vcenter">
+                <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>1. Ordenes de servicio - En curso</span></h2>
+                <p class="mbr-fonts-style text1 mbr-text display-6">Detalle de ordenes de servicio</p>
+            </div>
+        </div>
+    </a>
+
+    <a class="botongrande col-lg-6 col-xs-12 mbr-col-md-10" target="_blank" href="/tol/os_en_curso" >
+        <div class="wrap">
+            <div class="ico-wrap">
+                <span class="mbr-iconfont fa-eye fa"></span>
+            </div>
+            <div class="text-wrap vcenter">
+                <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>2. Ordenes de servicio - Concluidas</span></h2>
+                <p class="mbr-fonts-style text1 mbr-text display-6">Detalle de ordenes de servicio</p>
+            </div>
+        </div>
+    </a>
+
+</div><!-- row mbr-justify-content-center -->
+
+<%- include('includes/footer.ejs') %>

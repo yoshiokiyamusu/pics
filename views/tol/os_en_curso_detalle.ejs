@@ -1,0 +1,155 @@
+<%- include('includes/header.ejs') %>
+<%- include('includes/navbar.ejs') %>
+<style>
+.table {
+    display: table;
+    width: 100%;
+}
+input[type="text"], textarea {
+  background-color : #d1d1d1; 
+}
+</style>
+<!-- Informacion a nivel de Orden de servicio-->
+<% if (data_os.length > 0) { %>
+    <% for (let row_os of data_os) { %>
+       
+
+       <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Orden de servicio:</label>
+        <div class="col-sm-10">
+          <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="<%= row_os.orden %>">
+        </div>
+        <label for="staticEmail" class="col-sm-2 col-form-label">Proveedor:</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="<%= row_os.proveedor %>">
+          </div>
+        <label for="staticEmail" class="col-sm-2 col-form-label">fecha_creacion:</label>
+          <div class="col-sm-10">
+              <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="<%= row_os.fecha_creacion %>">
+          </div>  
+        <label for="staticEmail" class="col-sm-2 col-form-label">fecha_entrega:</label>
+          <div class="col-sm-10">
+              <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="<%= row_os.fecha_entrega %>">
+          </div>  
+   
+      </div><!-- form-group row -->
+
+    <% } %>
+<% } else { %> 
+    <h1>No hay ordenes en curso</h1>  
+<% } %> 
+
+<!-- Informacion a nivel de SKU dentro de la ORden-->
+<% if (data.length > 0) { %>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Productos para manufacturar:</th>           
+          </tr>
+        </thead>
+        <tbody>
+    <% for (let rows of data) { %>
+        <tr>
+            <td scope="row">
+               <p>Producto: <strong><%= rows.productos[0].sku_readable %></strong></p>
+               <br>
+               <p>Cantidad: <strong><%= rows.productos[0].cantidad %></strong></p>
+            </td>
+
+        </tr>
+
+    <% } %>  
+    </tbody>
+    </table>  
+<% } else { %> 
+    <h1>No hay ordenes en curso</h1>  
+<% } %>     
+
+
+
+<!-- Formulario de agregar comentario y aprobar ordenes-->
+<% if (data_os.length > 0) { %>
+  <% for (let row_os of data_os) { %>
+<form action="/tol/comment_proveedor/<%= row_os.orden %>" method="POST">
+  <% } %>
+<% } %>
+  <div class="form-row">
+      <div class="col-12 input-group" id="">
+
+          <div class="col-12">
+            <h4 for="os-date-recibo" class="col-sm-4 col-form-label">Comentario de proveedor:</h4>
+            <textarea  type="text" name="op_comentario" class="form-control" rows="4" cols="40"></textarea>
+            
+              <div class="row p-4 col-12">
+                <h4  class="col-form-label">Elegir estado de la orden de servicio:</h4>
+                  
+                  <select class="selectpicker">
+                    <option value="">Elegir estado</option>
+                    <option value="pendiente">Pendiente</option>
+                    <option value="aprobado">Aprobar</option>
+                    <option value="no_conforme">No conforme, revisarlo</option>
+                    <option value="en_curso">Orden en curso</option>
+                    <option value="concluido_enviado">Concluido enviado</option>
+                    <option value="liquidado">Liquidado</option>
+                    <option value="cancelado">Cancelado</option>
+                  </select>
+                  <br></br>
+                  <button class="btn btn-primary" type="submit"> Agregar comentario </button>
+                  <div class="response_check_comment"><h4></h4></div>
+              </div>
+            
+          </div><!-- ter col-->
+
+          <!-- value de token-->
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">   
+
+      </div>
+  </div>
+</form>
+
+<br></br>
+
+
+<!-- Informacion de comentarios a nivel de orden de servicio-->
+<% if (data_com.length > 0) { %>
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col" width="100%">Comentarios:</th>     
+        </tr>
+      </thead>
+      <tbody>
+  <% for (let rows_com of data_com) { %>
+      <tr>
+          <td>
+              <p><%= rows_com.comentario %></p>
+            <br>
+              <p>Comentario al: <%= rows_com.fecha_creacion %> | comentado por: <%= rows_com.usuario %></p>
+            <br>
+            <% if (data_os.length > 0) { %>
+              <% for (let row_os of data_os) { %>
+            <form action="/tol/delete_comment_proveedor/<%= row_os.orden %>/<%= rows_com.usuario %>/<%= rows_com.comentario %>" method="POST">
+              <% } %>
+            <% } %>
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Eliminar </>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <button type="submit" class="btn btn-primary">Confirmar eliminar</button>
+                </div>
+              </div>
+              <!-- value de token-->
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">   
+            </form>
+          </td>
+      </tr>
+
+  <% } %>  
+  </tbody>
+  </table>  
+<% } else { %> 
+  <h2>Aun no hay comentarios en esta orden de servicio.</h2>  
+<% } %>     
+
+

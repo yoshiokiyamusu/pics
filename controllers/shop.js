@@ -1,3 +1,6 @@
+const Op_avance = require('../models/op_avance');
+const User = require('../models/user');
+
 const Product = require('../models/product');
 const Order = require('../models/order');
 const fetch = require("node-fetch");
@@ -168,7 +171,7 @@ exports.getOPs = (req, res, next) => {
 //Todas las ordenes de produccion del api
 exports.getOPsBySupplier = (req, res, next) => {
   const token = localStorage.getItem('token');
-  const proveedor = req.body.ProveedorId;    console.log(proveedor);
+  const proveedor = req.body.ProveedorId;    //console.log(proveedor);
   
 
   fetch('https://api-trial-post12.herokuapp.com/info/orden_servicio/' + proveedor, {
@@ -242,4 +245,72 @@ exports.postCommentForm = (req, res, next) => {
   .catch(err => {
     console.log(err);
   });
+};
+
+exports.getop_api = (req, res, next) => {
+   const api_url = "https://api.wheretheiss.at/v1/satellites/25544";
+   fetch(api_url)
+  .then(rows => {
+    return rows.json();
+  }).then(data => {
+    console.log(data.latitude);
+
+ 
+  })
+  .catch(err => {
+    console.log(err);
+  });
+   
+};
+
+
+
+
+
+
+exports.getop_trial = (req, res, next) => {
+  console.log('');
+  Op_avance.find().toArray()
+    .then(rows => {
+      return rows;
+    }).then( ops_avance => {
+      console.log(ops_avance);
+      console.log(ops_avance[1].cantidad);
+
+      let filledArray = new Array(3); // number of rows in table
+      for(let i=0; i<3;i++){
+        filledArray[i] = {
+          'id':ops_avance[i].id,
+          'sku':ops_avance[i].sku, 
+          'cantidad':ops_avance[i].cantidad, 
+          'status':ops_avance[i].status
+        };
+      }
+      console.log(filledArray);
+
+      var arr = [];
+      for(let i=0; i<3;i++){
+        console.log(ops_avance[i].sku); console.log(ops_avance[i].cantidad);
+
+        arr[i] = {
+          'id':ops_avance[i].id,
+          'sku':ops_avance[i].sku, 
+          'cantidad':ops_avance[i].cantidad, 
+          'status':ops_avance[i].status
+        };
+      }
+      console.log(arr);
+
+      /*
+        res.render('shop/product-list', {
+          prods: products,
+          pageTitle: 'All Products',
+          path: '/products',
+          isAuthenticated: req.session.isLoggedIn
+        });
+      */  
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };

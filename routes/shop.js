@@ -7,7 +7,7 @@ const shopController = require('../controllers/shop');
 const router = express.Router();
 const isAuth = require('../middleware/is-auth');
 
-router.get('/', isAuth,shopController.getIndex);
+router.get('/prueba', shopController.getIndex); //isAuth,
 router.get('/products', shopController.getOPs);//get info proveedor
 router.post('/products', shopController.getOPsBySupplier);//get info proveedor seleccionado
 //router.get('/products', shopController.getProducts);
@@ -25,5 +25,11 @@ router.post('/cart-delete-item', shopController.postCartDeleteProduct);
 router.post('/create-order', shopController.postOrder);
 
 router.get('/orders', shopController.getOrders);
+
+
+//Trial para hacer fifo
+router.get('/fifo', shopController.getop_trial); //isAuth,
+
+
 
 module.exports = router;

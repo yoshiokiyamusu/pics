@@ -9,6 +9,9 @@
             <li class="main-header__item">
                 <a class="<%= path === '/products' ? 'active' : '' %>" href="/products">OTs</a>
             </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/fifo' ? 'active' : '' %>" href="/fifo">calculo fifo</a>
+            </li>
             <% if (isAuthenticated) { %>
                 <li class="main-header__item">
                     <a class="<%= path === '/cart' ? 'active' : '' %>" href="/comment_proveedor">Add comentario taller</a>

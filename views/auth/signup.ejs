@@ -7,22 +7,40 @@
    <%- include('../includes/navigation.ejs') %>
 
     <main>
-        <form class="login-form" action="/signup" method="POST">
+        <% if(errorMessage) { %>
+            <div class="user-message user-message--error"><%= errorMessage %></div>
+        <% } %>
+        <form class="login-form" action="/signup" method="POST" novalidate>
             <div class="form-control">
-                <label for="email">E-Mail</label>
-                <input type="email" name="email" id="email">
+                <label for="usuario_login">usuario_login</label>
+                <input class="invalid"
+                type="text" name="usuario_login" id="usuario_login" value="">
             </div>
             <div class="form-control">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password">
+                <label for="password_login">password_login</label>
+                <input class=""
+                type="text" name="password_login" id="password_login" value="">
             </div>
             <div class="form-control">
-                <label for="confirmPassword">Confirm Password</label>
-                <input type="password" name="confirmPassword" id="confirmPassword">
-                <!-- value de token-->
-                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <label for="usuario_wms">usuario_wms</label>
+                <input class=""
+                type="text" name="usuario_wms" id="usuario_wms" value="">
             </div>
-            <button class="btn" type="submit">Signup</button>
+            <div class="form-control">
+                <label for="email">email</label>
+                <input class=""
+                type="email" name="email" id="email" value="">
+            </div>
+            <div class="form-control">
+                <label for="celular">celular</label>
+                <input class=""
+                type="text" name="celular" id="celular" value="">
+            </div>
+
+
+
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="btn" type="submit">Crear taller</button>
         </form>
     </main>
 <%- include('../includes/end.ejs') %>

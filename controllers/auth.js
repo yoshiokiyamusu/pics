@@ -1,6 +1,8 @@
+
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const fetch = require("node-fetch");
+const { validationResult } = require('express-validator/check');
 const LocalStorage = require('node-localstorage').LocalStorage;
 localStorage = new LocalStorage('./scratch');
 
@@ -19,25 +21,33 @@ exports.getLogin = (req, res, next) => {
 };
 
 exports.getSignup = (req, res, next) => {
+    //para que no pinte req.flash como array vacio
+    let message = req.flash('error');
+    if(message.length > 0){ message = message[0]; }else{ message = null; } 
+
   res.render('auth/signup', {
     path: '/signup',
     pageTitle: 'Signup',
-    isAuthenticated: false
+    isAuthenticated: false,
+    errorMessage: message,
+    oldInput:{email:'', password:'', confirmPassword:''},
+    validationErrors: []
   });
 };
 
 exports.postLogin = (req, res, next) => {
-  const email = req.body.email;
+  //const email = req.body.email;
+  const user_wms = req.body.user_wms
   const password = req.body.password;
-  User.findOne({ email: email })
+  User.findOne({ usuario_wms: user_wms })
     .then(user => {
       if (!user) {
-        req.flash('error','mail ingresado no existe');
+        req.flash('error','Nombre de usuario ingresado no existe');
         return res.redirect('/login');
       }
       bcrypt
-        .compare(password, user.password)
-        .then(doMatch => {
+        .compare(password, user.password_login)
+        .then(doMatch => {  
           if (doMatch) {
               /*Fetch post hacia mysql-backend-api para que regreses un jwtoken y se almacene en el localstorage del navegador */ 
               fetch('https://api-trial-post12.herokuapp.com/auth/login',{
@@ -46,7 +56,7 @@ exports.postLogin = (req, res, next) => {
                   'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                  email: email,
+                  user_wms: user_wms,
                   password: password
                 })
               })
@@ -64,10 +74,7 @@ exports.postLogin = (req, res, next) => {
                 );
                 localStorage.setItem('expiryDate', expiryDate.toISOString());
                 localStorage.setAutoLogout(remainingMilliseconds);
-                
-               
-                
-                
+
               })
               .catch(err => {
                 console.log(err);
@@ -77,7 +84,7 @@ exports.postLogin = (req, res, next) => {
               req.session.user = user;
               return req.session.save(err => {
                 console.log(err);
-                res.redirect('/');
+                res.redirect('/tol');
               });
           }//end:if (doMatch)
           req.flash('error','contraseña ingresada erronea');
@@ -92,9 +99,25 @@ exports.postLogin = (req, res, next) => {
 };
 
 exports.postSignup = (req, res, next) => {
+
+  const usuario = req.body.usuario_login;
+  const password = req.body.password_login;
+  const usuario_wms = req.body.usuario_wms;
   const email = req.body.email;
-  const password = req.body.password;
-  const confirmPassword = req.body.confirmPassword;
+  const celular = req.body.celular;
+  const errors = validationResult(req);
+
+  if(!errors.isEmpty()){
+    console.log(errors.array());
+    return res.status(422).render('auth/signup', {
+      path: '/signup',
+      pageTitle: 'Signup',
+      errorMessage: errors.array()[0].msg,
+      //oldInput:{email:email, password:password, confirmPassword:confirmPassword},
+      validationErrors: errors.array()
+    });
+  }
+
   User.findOne({ email: email })
     .then(userDoc => {
       if (userDoc) {
@@ -104,9 +127,13 @@ exports.postSignup = (req, res, next) => {
         .hash(password, 12)
         .then(hashedPassword => {
           const user = new User({
+            usuario_login: usuario,
+            password_login: hashedPassword,
+            usuario_wms: usuario_wms,
             email: email,
-            password: hashedPassword,
-            cart: { items: [] }
+            celular: celular,
+            timestamp: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
+            
           });
           return user.save();
         })
@@ -129,3 +156,5 @@ exports.postLogout = (req, res, next) => {
     res.redirect('/login');
   });
 };
+
+

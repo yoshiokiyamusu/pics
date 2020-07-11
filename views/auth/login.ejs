@@ -11,13 +11,16 @@
           <div class="user-message user-message--error"><%= errorMessage %></div>
         <% } %>
         <form class="login-form" action="/login" method="POST">
+
+
             <div class="form-control">
-                <label for="email">E-Mail</label>
-                <input type="email" name="email" id="email">
+                <label for="user_wms">Nombre usuario:</label>
+                <input type="text" name="user_wms" id="user_wms" autocomplete="off">
             </div>
+
             <div class="form-control">
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password">
+                <input type="password" name="password" id="password" autocomplete="off">
             </div>
             <button class="btn" type="submit">Login</button>
             <!-- value de token-->
